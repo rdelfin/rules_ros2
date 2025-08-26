@@ -333,3 +333,19 @@ def ros2_repositories():
         strip_prefix = "rcl_logging_syslog-e63257f2d5ca693f286bbcedf2b23720675b7f73",
         urls = ["https://github.com/fujitatomoya/rcl_logging_syslog/archive/e63257f2d5ca693f286bbcedf2b23720675b7f73.zip"],
     )
+
+def ros2_rust_repositories():
+    maybe(
+        http_archive,
+        name = "ros2_rust",
+        build_file = "//repositories:ros2_rust.BUILD.bazel",
+        patch_args = ["-p1"],
+        patches = [
+            "//repositories/patches:ros2_rust_fix_rclrs.patch",
+            "//repositories/patches:ros2_rust_fix_rosidl_generator.patch",
+            "//repositories/patches:ros2_rust_fix_rosidl_runtime.patch",
+        ],
+        sha256 = "b0aa9c2a890968946dd29d2368fcba542cadd8399b5a0460a3559888b272209b",
+        strip_prefix = "ros2_rust-0.5.1",
+        urls = ["https://github.com/ros2-rust/ros2_rust/archive/v0.5.1.tar.gz"],
+    )
