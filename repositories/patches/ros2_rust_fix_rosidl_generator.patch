@@ -1,8 +1,24 @@
 diff --git a/rosidl_generator_rs/resource/action.rs.em b/rosidl_generator_rs/resource/action.rs.em
-index 5f463f3..56c3a03 100644
+index 5f463f3..9416fa4 100644
 --- a/rosidl_generator_rs/resource/action.rs.em
 +++ b/rosidl_generator_rs/resource/action.rs.em
-@@ -75,7 +75,6 @@ TEMPLATE(
+@@ -1,3 +1,6 @@
++#[cfg(feature = "serde")]
++use serde::{Deserialize, Serialize};
++
+ @{
+ from rosidl_parser.definition import (
+     ACTION_FEEDBACK_MESSAGE_SUFFIX,
+@@ -26,6 +29,8 @@ for subfolder, action in action_specs:
+ }@
+ 
+ pub mod rmw {
++#[cfg(feature = "serde")]
++use serde::{Deserialize, Serialize};
+ @{
+ TEMPLATE(
+     'msg_rmw.rs.em',
+@@ -75,7 +80,6 @@ TEMPLATE(
  type_name = action_spec.namespaced_type.name
  }@
  
@@ -10,11 +26,45 @@ index 5f463f3..56c3a03 100644
  extern "C" {
      fn rosidl_typesupport_c__get_action_type_support_handle__@(package_name)__@(subfolder)__@(type_name)() -> *const std::ffi::c_void;
  }
+diff --git a/rosidl_generator_rs/resource/msg.rs.em b/rosidl_generator_rs/resource/msg.rs.em
+index 3f7d10e..a5647be 100644
+--- a/rosidl_generator_rs/resource/msg.rs.em
++++ b/rosidl_generator_rs/resource/msg.rs.em
+@@ -1,4 +1,9 @@
++#[cfg(feature = "serde")]
++use serde::{Deserialize, Serialize};
++
+ pub mod rmw {
++#[cfg(feature = "serde")]
++use serde::{Deserialize, Serialize};
+ @{
+ TEMPLATE(
+     'msg_rmw.rs.em',
+diff --git a/rosidl_generator_rs/resource/msg_idiomatic.rs.em b/rosidl_generator_rs/resource/msg_idiomatic.rs.em
+index e6ec288..fe59979 100644
+--- a/rosidl_generator_rs/resource/msg_idiomatic.rs.em
++++ b/rosidl_generator_rs/resource/msg_idiomatic.rs.em
+@@ -15,8 +15,6 @@ from rosidl_parser.definition import UnboundedWString
+ @# ############ Idiomatic message types ############
+ @# #################################################
+ @# These types use standard Rust containers where possible.
+-#[cfg(feature = "serde")]
+-use serde::{Deserialize, Serialize};
+ @[for subfolder, msg_spec in msg_specs]@
+ @{
+ type_name = msg_spec.structure.namespaced_type.name
 diff --git a/rosidl_generator_rs/resource/msg_rmw.rs.em b/rosidl_generator_rs/resource/msg_rmw.rs.em
-index fbedd6d..3fb50c2 100644
+index fbedd6d..f68488d 100644
 --- a/rosidl_generator_rs/resource/msg_rmw.rs.em
 +++ b/rosidl_generator_rs/resource/msg_rmw.rs.em
-@@ -17,12 +17,10 @@ use serde::{Deserialize, Serialize};
+@@ -10,19 +10,15 @@ from rosidl_parser.definition import UnboundedSequence
+ from rosidl_parser.definition import UnboundedString
+ from rosidl_parser.definition import UnboundedWString
+ }@
+-#[cfg(feature = "serde")]
+-use serde::{Deserialize, Serialize};
+ @[for subfolder, msg_spec in msg_specs]@
+ @{
  type_name = msg_spec.structure.namespaced_type.name
  }@
  
@@ -27,6 +77,26 @@ index fbedd6d..3fb50c2 100644
  extern "C" {
      fn @(package_name)__@(subfolder)__@(type_name)__init(msg: *mut @(type_name)) -> bool;
      fn @(package_name)__@(subfolder)__@(type_name)__Sequence__init(seq: *mut rosidl_runtime_rs::Sequence<@(type_name)>, size: usize) -> bool;
+diff --git a/rosidl_generator_rs/resource/srv.rs.em b/rosidl_generator_rs/resource/srv.rs.em
+index dd99e8e..75f3f5b 100644
+--- a/rosidl_generator_rs/resource/srv.rs.em
++++ b/rosidl_generator_rs/resource/srv.rs.em
+@@ -9,8 +9,15 @@ TEMPLATE(
+     constant_value_to_rs=constant_value_to_rs)
+ }
+ 
++#[cfg(feature = "serde")]
++use serde::{Deserialize, Serialize};
++
+ pub mod rmw {
++#[cfg(feature = "serde")]
++use serde::{Deserialize, Serialize};
++
+ @{
++
+ TEMPLATE(
+     'srv_rmw.rs.em',
+     package_name=package_name, interface_path=interface_path,
 diff --git a/rosidl_generator_rs/resource/srv_idiomatic.rs.em b/rosidl_generator_rs/resource/srv_idiomatic.rs.em
 index 660f1a6..0a7cce5 100644
 --- a/rosidl_generator_rs/resource/srv_idiomatic.rs.em
