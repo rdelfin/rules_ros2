@@ -179,9 +179,9 @@ def ros2_repositories_impl():
             "@com_github_mvukov_rules_ros2//repositories/patches:rclcpp_fix-maybe-uninitialized-warning.patch",
             "@com_github_mvukov_rules_ros2//repositories/patches:rclcpp_ts_libs_ownership.patch",
         ],
-        sha256 = "f2102798b3fd7c11eba2728b35f5aca34add9acc7beb42d0a7e9cfcda12eea3d",
-        strip_prefix = "rclcpp-16.0.11",
-        url = "https://github.com/ros2/rclcpp/archive/refs/tags/16.0.11.tar.gz",
+        sha256 = "a14bf509f1bb14edec77e03a14529236915adf8b4d9b8dbfe1cf9f0b37e9c8df",
+        strip_prefix = "rclcpp-16.0.11-nolock",
+        url = "https://github.com/rdelfin/rclcpp/archive/refs/tags/16.0.11-nolock.tar.gz",
     )
 
     maybe(
