@@ -1,0 +1,29 @@
+load("@com_github_mvukov_rules_ros2//ros2:bag.bzl", "ros2_bag")
+load("@com_github_mvukov_rules_ros2//ros2:cc_defs.bzl", "ros2_cpp_binary")
+load("@com_github_mvukov_rules_ros2//ros2:launch.bzl", "ros2_launch")
+load("@com_github_mvukov_rules_ros2//ros2:rust_interfaces.bzl", "rust_ros2_interface_library")
+load("@com_github_mvukov_rules_ros2//ros2:test.bzl", "ros2_test")
+load("@com_github_mvukov_rules_ros2//ros2:topic.bzl", "ros2_topic")
+load("@com_github_mvukov_rules_ros2//ros2:control.bzl", "ros2_controller_manager")
+load("@com_github_mvukov_rules_ros2//ros2:plugin.bzl", "ros2_plugin")
+load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+ros2_plugin(
+    name = "sample_hardware_interface",
+    ros2_package_name = "control_examples",
+    srcs = ["sample_hardware_interface.cpp"],
+    hdrs = ["sample_hardware_interface.hpp"],
+    plugin_specs = [{
+        "base_class_type": "hardware_interface::SystemInterface",
+        "class_type": "control_examples::SampleHardwareInterface",
+    }],
+    deps = [
+        "@ros2_control//:hardware_interface",
+        "@ros2_pluginlib//:pluginlib",
+        "@ros2_rclcpp//:rclcpp",
+        "@ros2_rclcpp//:rclcpp_lifecycle",
+    ],
+)
+
+

@@ -126,6 +126,7 @@ use_repo(
     "ros2_ament_index",
     "ros2_class_loader",
     "ros2_common_interfaces",
+    "ros2_control",
     "ros2_diagnostics",
     "ros2_geometry2",
     "ros2_image_common",

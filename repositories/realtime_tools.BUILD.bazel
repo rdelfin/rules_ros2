@@ -1,0 +1,21 @@
+load("@com_github_mvukov_rules_ros2//ros2:cc_defs.bzl", "ros2_cpp_library")
+
+package(default_visibility = ["//visibility:public"])
+
+ros2_cpp_library(
+    name = "realtime_tools",
+    srcs = [
+        "src/realtime_clock.cpp",
+        "src/realtime_helpers.cpp",
+    ],
+    hdrs = [
+        "include/realtime_tools/realtime_clock.hpp",
+        "include/realtime_tools/realtime_helpers.hpp",
+    ],
+    includes = ["include"],
+    linkopts = ["-lcap"],
+    ros2_package_name = "realtime_tools",
+    deps = [
+        "@ros2_rclcpp//:rclcpp",
+    ],
+)

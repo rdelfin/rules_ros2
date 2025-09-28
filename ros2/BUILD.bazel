@@ -93,6 +93,16 @@ py_binary(
     ],
 )
 
+py_binary(
+    name = "ros2_control",
+    srcs = ["ros2_control.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":ros2_cmd",
+        "@ros2_control//:ros2controlcli",
+    ],
+)
+
 whl_filegroup(
     name = "numpy_includes",
     pattern = "numpy/core/include/numpy",
