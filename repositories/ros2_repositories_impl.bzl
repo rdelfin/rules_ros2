@@ -372,3 +372,30 @@ def ros2_repositories_impl():
         strip_prefix = "urdfdom_headers-1.0.6",
         url = "https://github.com/ros/urdfdom_headers/archive/refs/tags/1.0.6.tar.gz",
     )
+
+    maybe(
+        http_archive,
+        name = "ros2_realtime_tools",
+        build_file = "@com_github_mvukov_rules_ros2//repositories:realtime_tools.BUILD.bazel",
+        url = "https://github.com/ros-controls/realtime_tools/archive/2.14.0.tar.gz",
+        strip_prefix = "realtime_tools-2.14.0",
+        sha256 = "7316a253d3f4fb58db49e02efc1c2eb28f6d66c51009959e82dacb1060396d30",
+    )
+
+    maybe(
+        http_archive,
+        name = "ros2_control_msgs",
+        build_file = "@com_github_mvukov_rules_ros2//repositories:control_msgs.BUILD.bazel",
+        url = "https://github.com/ros-controls/control_msgs/archive/4.8.0.tar.gz",
+        strip_prefix = "control_msgs-4.8.0",
+        sha256 = "e97b45c67b5ec42502182d4034f79535468af87ddeb109dc6cf601eff3cf302b",
+    )
+
+    maybe(
+        http_archive,
+        name = "ros2_control",
+        build_file = "@com_github_mvukov_rules_ros2//repositories:ros2_control.BUILD.bazel",
+        sha256 = "7054c5c9d257018463e943a0a579938ee33d94a1b7590c30d04f17299ef7514c",
+        strip_prefix = "ros2_control-2.51.0",
+        url = "https://github.com/ros-controls/ros2_control/archive/refs/tags/2.51.0.tar.gz",
+    )
